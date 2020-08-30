@@ -1,22 +1,23 @@
-package StackExample;
+package QueueExample;
 
 import java.util.Arrays;
 
-public class Stack {
-    public static final int MAX_STACK_SIZE = 5;
+public class Queue {
+    public static final int MAX_QUEUE_SIZE = 5;
     boolean full = false;
     boolean empty = true;
-    // Backing array
-    String[] array = new String[MAX_STACK_SIZE];
-    // Points to first empty cell
+    String[] array = new String[MAX_QUEUE_SIZE];
     int pointer = 0;
+    int take = 0;
+    int size = 0;
 
-    public boolean push(String newElement) {
+    public boolean queue(String newElement) {
         if (!full) {
             array[pointer] = newElement;
             pointer++;
+            size++;
             empty = false;
-            if (pointer == MAX_STACK_SIZE)
+            if (pointer == MAX_QUEUE_SIZE)
                 full = true;
             return true;
         }
@@ -24,23 +25,27 @@ public class Stack {
             return false;
     }
 
-    public String pop() {
-        String lastItem = null;
+    public String dequeue() {
+        String firstItem = null;
         if (!empty) {
-            lastItem = array[pointer - 1];
-            array[pointer - 1] = null;
+            firstItem = array[take];
+            array[take] = null;
+            take++;
+            size--;
             pointer--;
-            if (pointer != MAX_STACK_SIZE)
+            if (take != 0)
                 full = false;
-            if (pointer == 0)
+            if (take == MAX_QUEUE_SIZE)
                 empty = true;
         }
-        return lastItem;
+        return firstItem;
     }
 
     public void clear() {
         Arrays.fill(array, null);
         pointer = 0;
+        take = 0;
+        size = 0;
         empty = true;
         full = false;
     }
@@ -54,21 +59,22 @@ public class Stack {
     }
 
     public int size() {
-        return pointer;
+        return size;
+    }
+
+    public int getCapacity() {
+        return MAX_QUEUE_SIZE;
     }
 
     public void showElements() {
-        System.out.println("*** Elements in the Stack ***");
-        if (!empty)
+        System.out.println("*** Elements in the Queue ***");
+        if (!empty) {
             for (String s : array) {
                 if (s != null)
                     System.out.println(s);
             }
+        }
         else
-            System.out.println("Nothing in the Stack!");
-    }
-
-    public int getCapacity() {
-        return MAX_STACK_SIZE;
+            System.out.println("Nothing in the Queue!");
     }
 }

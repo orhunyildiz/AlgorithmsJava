@@ -1,11 +1,11 @@
 public class PrimeNumber {
     public static void main(String[] args) {
-        int count = countPrimes(1000);
+        int count = countPrimes(1000000);
         System.out.println("\nCount: " + count);
     }
 
     public static boolean isPrime(int number) {
-        int upperBound = (int) Math.sqrt(number) + 1;
+        int upperBound = (int) (Math.sqrt(number) + 1);
         for (int i = 2; i < upperBound; i++) {
             if (number % i == 0)
                 return false;
