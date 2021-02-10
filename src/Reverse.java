@@ -5,13 +5,11 @@ public class Reverse {
 
     public static void reverseString(String string) {
         char[] arr = new char[string.length()];
-        int j = 0;
+        
+        int j = string.length() - 1;
         for (int i = 0; i < string.length(); i++) {
-            j = string.length() - i - 1;
-            if (j < 0)
-                break;
-            arr[i] = string.charAt(j);
             arr[j] = string.charAt(i);
+            j--;
         }
 
         for (int i = 0; i < string.length(); i++)
